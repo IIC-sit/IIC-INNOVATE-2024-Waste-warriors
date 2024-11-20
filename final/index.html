@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Custom CSS for the map -->
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+    <title>Waste Management System</title>
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+    background: linear-gradient(to right, skyblue, green);
+    color: white;
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+            header .logo {
+                display: flex;
+                align-items: center;
+            }
+
+                header .logo img {
+                    height: 50px;
+                    margin-right: 15px;
+                }
+
+            header nav {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+
+                header nav a {
+                    color: white;
+                    text-decoration: none;
+                    margin: 0 10px;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+
+                    header nav a:hover {
+                        text-decoration: underline;
+                    }
+
+        .hero {
+            background: #333;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid #004085;
+        }
+
+            .hero h1 {
+                font-size: 2.5em;
+                color: #4CAF50;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+                margin: 20px 0;
+            }
+
+
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #333;
+            color: #e0e0e0;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            button:hover {
+                background: #002752;
+            }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+            .footer a {
+                color: #4CAF50;
+                text-decoration: none;
+                
+            }
+
+
+        .visually-hidden {
+            position: absolute;
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        #hed {
+            font-size: xx-large;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        #logo {
+            border-radius: 50%;
+        }
+
+        body {
+            background-image: url(motor.jpg);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img id="logo" src="logo.jpg" alt="Government Logo">
+            <span id="hed">Government of Cleanliness</span>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="signin.html">Sign In</a>
+            <a href="contact.html">Contact</a>
+            <a href="support.html">Support</a>
+        </nav>
+    </header>
+
+
+
+
+    <section class="hero" id="home">
+        <h1>Welcome to the National Waste Management System</h1>
+        <p>Our mission is to promote sustainable waste disposal practices across the nation. Join us in keeping our cities clean and green.</p>
+    </section>
+    
+    <div class="container" id="form-section">
+        <h2>Report Waste</h2>
+        <form id="waste-report-form">
+            <div class="form-group">
+                <label for="location-input">Location:</label>
+                <input type="text" id="location-input" placeholder="Enter location manually">
+                <input type="hidden" id="lati2" name="lati2">
+                <input type="hidden" id="longi2" name="longi2">
+                <button type="button" id="gps-button">Use Current Location</button>
+            </div>
+
+            <div class="form-group">
+                <label for="waste-type">Waste Type:</label>
+                <select id="waste-type" required>
+                    <option value="">Select Waste Type</option>
+                    <option value="household">Household Waste</option>
+                    <option value="industrial">Industrial Waste</option>
+                    <option value="electronic">Electronic Waste</option>
+                    <option value="hazardous">Hazardous Waste</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="severity">Severity:</label>
+                <select id="severity" required>
+                    <option value="">Select Severity</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" placeholder="Provide additional details about waste"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="waste-images">Upload Images:</label>
+                    <input type="file" id="waste-images" multiple accept="image/*">
+                </div>
+                <div class="suggestion about -waste">
+                    <label for="waste">Suggestion:</label>
+                    <textarea id="description" placeholder="Any suggestion regarded about us detailhere"></textarea>
+                </div>
+                <button style="text-align: center;">Submit Reprt</button>
+
+            </div>
+            <div id="map"></div>
+            <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+            <script>
+                //extras function for maps
+
+                function my_loc(lati, longi) {
+                    // You can modify these values to your specific latitude and longitude
+
+
+                    //var initialLatitude = 28.7041;  // Example: Latitude of New Delhi, India
+                    //var initialLongitude = 77.1025;  // Example: Longitude of New Delhi, India
+
+                    var initialLatitude = lati;
+                    var initialLongitude = longi;
+
+                    // Create the map centered on the initial coordinates with zoom level 12 (good for city level view)
+                    var map = L.map('map').setView([initialLatitude, initialLongitude], 12);
+
+                    // Set up OpenStreetMap tile layer
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    // Add a marker at the initial location
+                    var marker = L.marker([initialLatitude, initialLongitude]).addTo(map);
+
+                    // Function to update Latitude and Longitude when the user clicks on the map
+                    map.on('click', function (e) {
+                        var latitude = e.latlng.lat;
+                        var ongitude = e.latlng.lng;
+
+                        // Set the marker position to the clicked location
+                        marker.setLatLng(e.latlng);
+
+                        // Update the Latitude and Longitude on the webpage
+                        document.getElementById('latitude').textContent = latitude;
+                        document.getElementById('longitude').textContent = longitude;
+                    });
+
+                    // If you want to add a function that automatically locates a specific latitude and longitude
+                    // You can call the following function to move the map to new coordinates dynamically
+
+                    function goToLocation(lat, lng) {
+                        // Set the view of the map to new coordinates and zoom level 12
+                        map.setView([lat, lng], 12);
+
+                        // Update the marker position
+                        marker.setLatLng([lat, lng]);
+
+                        // Update the latitude and longitude display
+                        document.getElementById('latitude').textContent = lat;
+                        document.getElementById('longitude').textContent = lng;
+                    }
+
+                    // Example: Go to New Delhi (28.7041, 77.1025)
+                    goToLocation(initialLatitude, initialLongitude);
+                }
+
+                //end for functions of map
+                // Function to get real-time location (continuously updating)
+                function watchLocation() {
+                    if (navigator.geolocation) {
+                        // Start watching the user's location
+                        var watchId = navigator.geolocation.watchPosition(function (position) {
+                            // Get lati2 and longi2 from position object
+                            var lati2 = position.coords.latitude;
+                            var longi2 = position.coords.longitude;
+
+                            // Set lati2 and longi2 to hidden inputs
+                            document.getElementById('lati2').value = lati2;
+                            document.getElementById('longi2').value = longi2;
+
+                            // Optionally, you could display the real-time location in the text input
+                            document.getElementById('location-input').value = `Lat: ${lati2}, Lon: ${longi2}`;
+
+                            // Optionally, you can log it to the console for real-time updates
+                            console.log("Real-time lati2: " + lati2 + ", longi2: " + longi2);
+
+                            //mod start
+                            my_loc(lati2, longi2);
+                            //mod end
+
+
+                        }, function (error) {
+                            alert("Unable to retrieve your location. Error: " + error.message);
+                        }, {
+                            enableHighAccuracy: true,  // to get more accurate results
+                            timeout: 5000,             // wait 5 seconds before timing out
+                            maximumAge: 0              // do not use cached position
+                        });
+                    } else {
+                        alert("Geolocation is not supported by this browser.");
+                    }
+                }
+
+                // Add event listener to the "Use Current Location" button
+                document.getElementById('gps-button').addEventListener('click', function () {
+                    // If location button clicked, start watching real-time location
+                    watchLocation();
+                    // To stop watching the location at some point
+                    navigator.geolocation.clearWatch(watchId);
+                    document.getElementById('waste-report-form').addEventListener('submit', function(event) {
+                        event.preventDefault(); 
+                        alert("Report Submitted Successfully!");
+                    });
+                });
+                <!-- Add this inside your script tag -->
+         document.getElementById('waste-report-form').addEventListener('submit', function(event) {
+        // Prevent form submission to stay on the page
+        event.preventDefault();
+        
+        // Show the alert message
+        alert("Your report has been submitted successfully.");
+        
+        // You can also add any additional logic here, like clearing the form or updating the map, etc.
+        
+        // Optionally, reset the form (if desired)
+        this.reset();
+    });
+
+  
+            </script>
+            
+</body>
+</div>
+<footer class="footer" style="background: #333; color: white; padding: 20px 0; text-align: center;">
+    
+    <p>&copy; 2024 Government of Cleanliness. All Rights Reserved.</p>
+    <div style="margin-top: 10px;">
+        <a href="https://facebook.com" target="_blank" style="text-decoration: none; margin: 0 10px;">
+            <i class="fab fa-facebook-f" style="color: #e0e0e0; font-size: 24px;"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" style="text-decoration: none; margin: 0 10px;">
+            <i class="fab fa-twitter" style="color: #e0e0e0; font-size: 24px;"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" style="text-decoration: none; margin: 0 10px;">
+            <i class="fab fa-instagram" style="color: #e0e0e0; font-size: 24px;"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" style="text-decoration: none; margin: 0 10px;">
+            <i class="fab fa-linkedin-in" style="color: #e0e0e0; font-size: 24px;"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" style="text-decoration: none; margin: 0 10px;">
+            <i class="fab fa-youtube" style="color: #e0e0e0; font-size: 24px;"></i>
+        </a>
+    
+</footer>
+
+<!-- Font Awesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+
+</html>
+
+
+
+
+
