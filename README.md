@@ -6,6 +6,15 @@
 Welcome to the repository for the hackathon organized by **Innovation Council** and **Siddaganga TBI**. This repository is a central hub for storing and collaborating on data related to our hackathon project.
 
 ### Problem Statement
+2. Problem Statement:
+  Objective:
+Develop an application that allows clients to report dirty or waste-filled areas in their vicinity, which will then be assigned to a cleaning team for swift action.
+  Client Reporting:
+•	Clients need a user-friendly interface to input the location of dirty or waste-filled areas.
+•	The system should capture specific details such as the type of waste (e.g., garbage, litter, hazardous material), severity of the mess, and location details.
+  Location Verification:
+•	The system should validate the reported location to ensure it is an accurate, real-world address or GPS coordinates.
+•	The application should integrate with mapping and GPS services to allow easy submission and real-time location identification
 
 The goal of this hackathon is to foster creativity, teamwork, and innovation among participants. We will work on solving challenges related to **[specific domain or technology]**, with the objective of **[specific problem you are addressing]**.
 
@@ -13,37 +22,37 @@ The goal of this hackathon is to foster creativity, teamwork, and innovation amo
 
 ## Team Details
 
-**Team Name:** [Your Team Name]
+**Team Name:** [Waste Warriors]
 
 ### Team Members
 
 1. **Member 1**  
-   - **Name:** [Full Name]  
-   - **USN:** [University Serial Number]
+   - **Name:** [Adarsh Kumar]  
+   - **USN:** [1SI23CS004]
 
 2. **Member 2**  
-   - **Name:** [Full Name]  
-   - **USN:** [University Serial Number]
+   - **Name:** [Prakash Shahu]  
+   - **USN:** [1SI23CS136]
 
 3. **Member 3**  
-   - **Name:** [Full Name]  
-   - **USN:** [University Serial Number]
+   - **Name:** [Kailash Arun Kumar]  
+   - **USN:** [1SI23CS079]
 
 4. **Member 4**  
-   - **Name:** [Full Name]  
-   - **USN:** [University Serial Number]
+   - **Name:** [Kumar Abhinav Verma]  
+   - **USN:** [1SI23CS090]
 
 ---
 
 ## Project Description
 
-[Provide a brief description of your project, the problem you are solving, and your approach.]
+[Waste management is a growing concern in modern cities, with uncollected garbage, inefficient resource allocation, and lack of public participation leading to environmental degradation and health hazards..]
 
 ---
 
 ## Technologies Used
 
-- [List the technologies used in your project, e.g., Python, JavaScript, TensorFlow, Node.js, etc.]
+- [List the technologies used in your project, e.g.,  HTML ,CSS, JavaScript, Node.js, etc.]
 
 ---
 
